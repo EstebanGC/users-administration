@@ -1,0 +1,25 @@
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
+import { Contact } from './contact.entity';
+
+@Entity()
+export class User {
+
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
+
+    @Column('varchar', {
+        length:80,
+        unique:true,
+    })
+    user:string;
+
+    @Column('varchar', { length: 80 })
+    password: string;
+
+    @OneToMany(
+        () => Contact,
+        (contact) => contact.user,
+        {cascade:true}
+    )
+    contacts?:Contact;
+}
