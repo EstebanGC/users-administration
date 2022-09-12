@@ -1,13 +1,12 @@
-import { truncate } from "fs";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Phone } from "./phone.entity";
-import { User } from "./user.entity";
+import { Phone } from "src/phones/entities/phone.entity";
+import { User } from "src/users/entities/user.entity";
 
 @Entity()
 export class Contact{
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Column('varchar', {length:80})
     name: string;
@@ -16,7 +15,7 @@ export class Contact{
     surname: string;
  
     @Column('boolean')
-    state: boolean;
+    status: boolean;
 
     @ManyToOne(
         () => User,
@@ -29,5 +28,5 @@ export class Contact{
         (phone) => phone.contact,
         {cascade:true}
     )
-    phones?:Phone
+    phones?:Phone[];
 }

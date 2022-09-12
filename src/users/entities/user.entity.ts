@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
-import { Contact } from './contact.entity';
+import { Contact } from 'src/contacts/entities/contact.entity';
 
 @Entity()
 export class User {
@@ -21,5 +21,5 @@ export class User {
         (contact) => contact.user,
         {cascade:true}
     )
-    contacts?:Contact;
+    contacts:Contact[];
 }

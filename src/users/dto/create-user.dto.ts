@@ -1,5 +1,5 @@
-import { IsArray, IsObject, IsOptional, IsString, MaxLength } from "class-validator";
-import { Contact } from "../entities";
+import { IsArray, IsOptional, IsString, MaxLength } from "class-validator";
+import { Contact } from "src/contacts/entities/contact.entity";
 
 
 export class CreateUserDto {
@@ -11,8 +11,7 @@ export class CreateUserDto {
     @MaxLength(80)
     password: string;
 
-    @IsString({each:true})
-    @IsObject()
+    @IsArray()
     @IsOptional()
-    contacts?: Contact[];
+    contacts: Contact[];
 }

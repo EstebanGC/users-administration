@@ -1,23 +1,19 @@
-import { IsArray } from "class-validator";
+import { Contact } from "src/contacts/entities/contact.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Contact } from "./contact.entity";
 
 
 @Entity()
 export class Phone {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
     
     @Column('varchar', {length: 80})
-    phone: number;
+    phone: string;
 
-    @IsArray()
     @ManyToOne(
         () => Contact,
         (contact) => contact.phones
     )
     contact:Contact;
-
-
 }

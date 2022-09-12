@@ -5,8 +5,8 @@ import { PaginationDto } from 'src/common/dtos/pagination.dto';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-
-import { User, Contact } from './entities';
+import { User } from './entities/user.entity';
+import { Contact } from 'src/contacts/entities/contact.entity';
 
 @Injectable()
 export class UsersService {
@@ -21,19 +21,19 @@ export class UsersService {
 
     @InjectRepository(Contact)
     private readonly contactRepository: Repository<Contact>,
-
     ){}
 
   async create(createUserDto: CreateUserDto) {
 
     try {
 
-      const { contacts = [], ...userDetails } = createUserDto;
+      const  { contacts = [], ...userDetails} = createUserDto;
 
       const user = this.userRepository.create({
-        ...userDetails, 
-        contacts: contacts.map( contact => this.contactRepository.create({contact}))
+        ...userDetails,
+        contacts: contacts.map(contact=> this.contactRepository.create(contact))
       });
+      
       await this.userRepository.save(user);
 
       return user;
@@ -50,7 +50,10 @@ export class UsersService {
     return this.userRepository.find({
       take: limit,
       skip: offset,
-    })
+      relations: {
+        contacts:true,
+      },
+    });
   }
 
   async findOne(id: string) {
@@ -73,10 +76,10 @@ export class UsersService {
     
     try {
       await this.userRepository.save(user);
-      return user;
     } catch(error){
       this.handleExceptions(error);
     }
+    return user;
   }
 
   async remove(id: string) {
