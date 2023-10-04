@@ -2,13 +2,13 @@
 
 Application to handle contacts, users and phone. Code with NestJS using Typeorm to work with relations in the database.
 
-## Installation
+## ⚙ Installation
 
 ```bash
 $ npm install
 ```
 
-## Running the app
+## 🛠 Running the app
 
 ```bash
 # development
