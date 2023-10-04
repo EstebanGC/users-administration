@@ -1,6 +1,6 @@
 # 📝 Users Administration App
 
-Application to handle contacts, users and phone. Code with NestJS using Typeorm to work with relations in the database.
+Application to handle contacts, users and phone. Coded with NestJS using Typeorm and Docker to run PostgreSQL virtually. 
 
 ## ⚙ Installation
 
